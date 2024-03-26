@@ -28,13 +28,11 @@ public class WebSecurityConfig {
     }
 
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)throws Exception{
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeRequests()
                 .requestMatchers("/login").permitAll()
-                .requestMatchers("/students").hasAnyRole("ROLE_STUDENT","ROLE_OFFICE_ADMIN")
-                .requestMatchers("/teachers").hasAnyRole("ROLE_TEACHER","ROLE_OFFICE_ADMIN")
-                .requestMatchers("/office-admins").hasRole("ROLE_OFFICE_ADMIN")
                 .anyRequest().authenticated().and()
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
