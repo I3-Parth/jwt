@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -30,9 +32,9 @@ public class WebSecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeRequests()
 //                .requestMatchers("/login").permitAll()
-                .requestMatchers("/students").hasRole("STUDENT")
-                .requestMatchers("/teachers").hasRole("TEACHER")
-                .requestMatchers("/office-admins").hasRole("OFFICE_ADMIN")
+                .requestMatchers("/students").hasAnyRole("ROLE_STUDENT","ROLE_OFFICE_ADMIN")
+                .requestMatchers("/teachers").hasAnyRole("ROLE_TEACHER","ROLE_OFFICE_ADMIN")
+                .requestMatchers("/office-admins").hasRole("ROLE_OFFICE_ADMIN")
                 .anyRequest().authenticated().and()
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

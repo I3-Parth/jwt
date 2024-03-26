@@ -27,22 +27,19 @@ public class HomeController {
     }
 
     @GetMapping("/students")
-    @PreAuthorize("hasRole('STUDENT')")
-//    @RolesAllowed("STUDENT")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_OFFICE_ADMIN')")
     public String getAllStudents(){
         return "Students logged in successfully!";
     }
 
     @GetMapping("/teachers")
-    @PreAuthorize("hasRole('TEACHER')")
-//    @RolesAllowed("TEACHER")
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER','ROLE_OFFICE_ADMIN')")
     public String getAllTeachers(){
         return "Teachers logged in successfully!";
     }
 
     @GetMapping("/office-admins")
-    @PreAuthorize("hasRole('OFFICE_ADMIN')")
-//    @RolesAllowed("OFFICE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_OFFICE_ADMIN')")
     public String getAllOfficeAdmins(){
         return "Office admins logged in successfully!";
     }

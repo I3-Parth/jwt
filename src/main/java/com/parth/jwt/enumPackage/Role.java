@@ -1,7 +1,7 @@
 package com.parth.jwt.enumPackage;
 
 public enum Role {
-    STUDENT,
-    TEACHER,
-    OFFICE_ADMIN
+    ROLE_STUDENT,
+    ROLE_TEACHER,
+    ROLE_OFFICE_ADMIN
 }
