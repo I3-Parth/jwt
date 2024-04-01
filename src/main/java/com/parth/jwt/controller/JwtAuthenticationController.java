@@ -27,16 +27,15 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
+    public JwtResponse login(@RequestBody JwtRequest request) {
 
         this.doAuthenticate(request.getUsername(), request.getPassword());
         UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(request.getUsername());
         String token = this.jwtHelper.generateToken(userDetails);
 
-        JwtResponse response = JwtResponse.builder()
+        return JwtResponse.builder()
                 .jwtToken(token)
                 .username(userDetails.getUsername()).build();
-        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     private void doAuthenticate(String username, String password) {
