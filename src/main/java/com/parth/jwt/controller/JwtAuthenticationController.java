@@ -5,8 +5,6 @@ import com.parth.jwt.config.JwtUserDetailsService;
 import com.parth.jwt.jwtModel.JwtRequest;
 import com.parth.jwt.jwtModel.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class JwtAuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtHelper jwtHelper;
@@ -43,8 +41,6 @@ public class JwtAuthenticationController {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
         try {
             authenticationManager.authenticate(authentication);
-
-
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException(" Invalid Username or Password  !!");
         }
