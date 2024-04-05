@@ -76,30 +76,6 @@ public class JwtHelper {
                 .signWith(key, SignatureAlgorithm.HS512).compact();
 
         return jws;
-//        Nimbus implementation
-//        JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.HS512).build();
-//
-//        JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-//                .issuer("Admin")
-//                .claim("Roles", claims.get("Roles"))
-//                .subject(subject)
-//                .issueTime(new Date(System.currentTimeMillis()))
-//                .expirationTime(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-//                .build();
-//
-//        Payload payload = new Payload(claimsSet.toJSONObject());
-//
-//        byte[] keyBytes = secret.getBytes();
-//        SecretKey key = new SecretKeySpec(keyBytes,0, keyBytes.length, "HmacSHA512");
-//
-//        JWSObject jwsObject = new JWSObject(header, payload);
-//
-//        try {
-//            jwsObject.sign(new MACSigner( key));
-//        } catch (JOSEException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return jwsObject.serialize();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
