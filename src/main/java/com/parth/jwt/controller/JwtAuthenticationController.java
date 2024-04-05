@@ -42,13 +42,8 @@ public class JwtAuthenticationController {
         try {
             authenticationManager.authenticate(authentication);
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException(" Invalid Username or Password  !!");
+            throw new BadCredentialsException(" Invalid Username or Password !!");
         }
 
-    }
-
-    @ExceptionHandler(BadCredentialsException.class)
-    public String exceptionHandler() {
-        return "Credentials Invalid !!";
     }
 }
