@@ -59,6 +59,8 @@ public class JwtHelper {
         UserEntity role = userRepository.findUserByUsername(userDetails.getUsername());
         Object[] roles = role.getRole().toString().split(",");
         claims.put("Roles",roles);
+        Long roleId = role.getRoleId();
+        claims.put("RoleId",roleId);
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
